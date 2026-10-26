@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://ym8rcdcvn5e8"]
+
+[ext_resource type="FontFile" uid="uid://drp8la7h2dya0" path="res://fonts/Inter-VariableFont_opsz,wght.ttf" id="1_d3v85"]
+[ext_resource type="Script" uid="uid://b6ejvvjrm6h53" path="res://script/table.gd" id="1_nqksw"]
+[ext_resource type="PackedScene" uid="uid://doa4giwrwecwn" path="res://scn/player.tscn" id="2_sx40o"]
+[ext_resource type="Script" uid="uid://bt8kv3udvlv67" path="res://script/name_lbl.gd" id="4_dblwx"]
+[ext_resource type="Script" uid="uid://d3105e31myacb" path="res://script/collision_shape_2d.gd" id="5_4afpd"]
+[ext_resource type="Script" uid="uid://rtwh5tce142n" path="res://script/area_2d.gd" id="5_ux0h5"]
+
+[sub_resource type="FontVariation" id="FontVariation_d3v85"]
+base_font = ExtResource("1_d3v85")
+variation_opentype = {
+1869640570: 14,
+2003265652: 400
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_diy2p"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="FontVariation" id="FontVariation_vnkvy"]
+base_font = ExtResource("1_d3v85")
+variation_opentype = {
+1869640570: 14,
+2003265652: 750
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_315pe"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dltx8"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.11119685, 0.11119685, 0.11119678, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dblwx"]
+
+[node name="Table" type="VBoxContainer" unique_id=1887823119 node_paths=PackedStringArray("gm_name_lbl", "game_name_lbl", "player_cont", "collision_s")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.79999
+offset_top = -17.0
+offset_right = 83.79999
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 10
+script = ExtResource("1_nqksw")
+gm_name_lbl = NodePath("VBoxContainer/GMName")
+game_name_lbl = NodePath("VBoxContainer/Label")
+player_scn = ExtResource("2_sx40o")
+player_cont = NodePath("PanelContainer/PlayerCont")
+collision_s = NodePath("Area2D/CollisionShape2D")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=825220374]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="GMName" type="Label" parent="VBoxContainer" unique_id=1864987567]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_d3v85")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_diy2p")
+text = "GM Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=794040861 node_paths=PackedStringArray("collision_s")]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_vnkvy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_315pe")
+text = "HADSGFDSBÖDSJGJDSBGÖJSDBGJDSG ADSGSGDSGSDGDS"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_dblwx")
+collision_s = NodePath("../../Area2D/CollisionShape2D")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1751559775]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dltx8")
+
+[node name="PlayerCont" type="GridContainer" parent="PanelContainer" unique_id=1364874444]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/v_separation = 10
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1205901199]
+position = Vector2(4, 0)
+collision_layer = 2
+collision_mask = 2
+priority = -1
+script = ExtResource("5_ux0h5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1301114907]
+shape = SubResource("RectangleShape2D_dblwx")
+script = ExtResource("5_4afpd")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

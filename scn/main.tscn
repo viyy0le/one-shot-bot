@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://c3voyj1sia03x"]
+
+[ext_resource type="Script" uid="uid://ccnjjvenwhiw4" path="res://script/main.gd" id="1_a14j1"]
+[ext_resource type="Script" uid="uid://b6h7uefrnwqac" path="res://script/file_button.gd" id="2_4hsr3"]
+[ext_resource type="Theme" uid="uid://d3s5togvwlm1f" path="res://themes/player.tres" id="2_vnkvy"]
+[ext_resource type="Script" uid="uid://bt043mt68tbbj" path="res://script/submit_button.gd" id="3_4hsr3"]
+[ext_resource type="Texture2D" uid="uid://ddnrsp76fcisr" path="res://icons/icons8-upload-20.png" id="3_b6phj"]
+[ext_resource type="PackedScene" uid="uid://ym8rcdcvn5e8" path="res://scn/table.tscn" id="5_315pe"]
+[ext_resource type="Texture2D" uid="uid://ikkem70rglct" path="res://icons/icons8-arrow-20.png" id="5_nq6di"]
+[ext_resource type="Theme" uid="uid://b6uub3ya40kuw" path="res://themes/submit_button_theme.tres" id="5_vnkvy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4afpd"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.15294118, 0.15294118, 0.15294118, 0)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vnkvy"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.15487596, 0.154876, 0.15487587, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0, 0, 0, 0.17254902)
+
+[node name="main" type="Node2D" unique_id=1129848466]
+script = ExtResource("1_a14j1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=401430532]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=498107751]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -39.0
+offset_right = 58.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4afpd")
+
+[node name="TableCont" type="GridContainer" parent="CanvasLayer/PanelContainer" unique_id=1924102282]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=1115164349]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -89.46149
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_bottom = 50
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer" unique_id=238715874]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vnkvy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer" unique_id=1465781016]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="GMFileButton" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer" unique_id=2048841904 node_paths=PackedStringArray("file_dialog", "table_cont")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Submit")
+focus_neighbor_right = NodePath("../PlayerFileButton")
+focus_next = NodePath("../PlayerFileButton")
+focus_previous = NodePath("../Submit")
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_vnkvy")
+text = "Upload GM File"
+icon = ExtResource("3_b6phj")
+script = ExtResource("2_4hsr3")
+file_dialog = NodePath("GMFileDialog")
+gm_or_player = 0
+table = ExtResource("5_315pe")
+table_cont = NodePath("../../../../PanelContainer/TableCont")
+
+[node name="GMFileDialog" type="FileDialog" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer/GMFileButton" unique_id=1057697415]
+oversampling_override = 1.0
+mode = 2
+title = "Select a GM CSV File"
+initial_position = 1
+dialog_hide_on_ok = true
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.csv")
+show_hidden_files = true
+use_native_dialog = true
+
+[node name="PlayerFileButton" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer" unique_id=1410547696 node_paths=PackedStringArray("file_dialog", "table_cont")]
+layout_mode = 2
+focus_neighbor_left = NodePath("../GMFileButton")
+focus_neighbor_right = NodePath("../Submit")
+focus_next = NodePath("../Submit")
+focus_previous = NodePath("../GMFileButton")
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_vnkvy")
+text = "Upload Player File"
+icon = ExtResource("3_b6phj")
+script = ExtResource("2_4hsr3")
+file_dialog = NodePath("PlayerFileDialog")
+gm_or_player = 1
+table = ExtResource("5_315pe")
+table_cont = NodePath("../../../../PanelContainer/TableCont")
+
+[node name="PlayerFileDialog" type="FileDialog" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer/PlayerFileButton" unique_id=71939883]
+oversampling_override = 1.0
+mode = 2
+title = "Select a Player CSV File"
+initial_position = 1
+dialog_hide_on_ok = true
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.csv")
+show_hidden_files = true
+use_native_dialog = true
+
+[node name="Submit" type="Button" parent="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer" unique_id=789093485 node_paths=PackedStringArray("gm_button", "player_button", "table_cont")]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("5_vnkvy")
+disabled = true
+text = "Assign Players"
+icon = ExtResource("5_nq6di")
+icon_alignment = 2
+script = ExtResource("3_4hsr3")
+gm_button = NodePath("../GMFileButton")
+player_button = NodePath("../PlayerFileButton")
+table_cont = NodePath("../../../../PanelContainer/TableCont")
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer/Submit" to="CanvasLayer/MarginContainer/PanelContainer/HBoxContainer/Submit" method="_on_pressed"]
